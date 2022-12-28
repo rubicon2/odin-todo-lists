@@ -20,6 +20,9 @@
   "homepage": "https://github.com/rubicon2/odin-todo-lists#readme",
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.75.0",
