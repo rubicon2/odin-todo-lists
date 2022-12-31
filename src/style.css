@@ -1,4 +1,44 @@
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto/Roboto-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto/Roboto-Medium.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto/Roboto-Bold.ttf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto/Roboto-LightItalic.ttf');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto/Roboto-MediumItalic.ttf');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto/Roboto-BoldItalic.ttf');
+    font-weight: 700;
+    font-style: italic;
+}
+
 :root {
+    font-family: Roboto;
     box-sizing: border-box;
     font-size: 1rem;
 }
@@ -7,9 +47,11 @@
     box-sizing: inherit;
     margin: 0;
     padding: 0;
+    border: 1px solid red;
 }
 
 body {
+    font-weight: 500;
     background-color: pink;
 
     display: grid;
@@ -19,31 +61,73 @@ body {
 }
 
 .projectListContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    align-items: baseline;
+    justify-items: center;
+    
+    padding: 0 2rem;
 
     background-color: aliceblue;
 }
 
 .projectListTitle {
+    grid-row: 1 / 2;
+
     margin: 2rem 0;
-    font-weight: bold;
+
+    font-weight: 700;
+    font-size: 36px;
 }
 
 .projectList {
+    grid-row: 2 / 3;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 1rem;
     
     list-style: none;
+    font-size: 24px;
 }
 
-.projectListLink {
+.projectListLink,
+.newProjectListLink,
+.newProjectButton {
     cursor: pointer;
+}
+
+.newProjectListLink {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.projectListLinkSelected {
+    color: red;
+}
+
+.newProjectButton {
+    grid-row: 3 / 4;
+
+    margin: 1rem 0;
+
+    font-weight: bold;
+    font-size: 48px;
 }
 
 .projectDisplayContainer {
     background-color: cadetblue;
+}
+
+.projectDisplayMenuBar {
+    display: flex;
+    background-color: teal;
+}
+
+.projectTitle {
+    margin: 2rem 1rem;
+    font-size: 36px;
+    font-weight: 700;
 }
