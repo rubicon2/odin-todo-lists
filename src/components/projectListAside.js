@@ -67,5 +67,5 @@ function createNewProjectLink() {
 function createNewProjectDialog() {
   let name = prompt('Project name:');
   let description = prompt('Project description:');
-  new Project(name, description);
+  if (name) new Project(name, description);
 }
