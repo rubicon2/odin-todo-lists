@@ -10,4 +10,14 @@ export default class Project {
     Project.list.push(this);
     publish('onNewProject', Project.list);
   }
+
+  addToDo(newToDo) {
+    this.toDoList.push(newToDo);
+    publish('onToDoAdded', this);
+  }
+
+  removeToDo(toDoToRemove) {
+    this.toDoList = this.toDoList.filter((toDo) => toDo !== toDoToRemove);
+    publish('onToDoRemoved', this);
+  }
 }
