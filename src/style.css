@@ -47,7 +47,7 @@
     box-sizing: inherit;
     margin: 0;
     padding: 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 body {
@@ -56,45 +56,65 @@ body {
 
     display: grid;
     grid-template-columns: 300px 1fr;
+    grid-template-rows: min-content 1fr;
 
     min-height: 100vh;
 }
 
-.projectListContainer {
+.centeredOverlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+
     display: grid;
-    grid-template-rows: min-content 1fr min-content;
+    place-items: center;
+}
+
+.newToDoForm {
+    background-color: aliceblue;
+    padding: 2rem;
+    border: 2px solid black;
+    border-radius: 10px;
+
+    display: grid;
+    gap: 1rem;
+}
+
+.projectsListTitleBackground {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    background-color: aliceblue;
+    display: grid;
+}
+
+.projectListContainer {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+
+    display: grid;
+    grid-template-rows: 1fr min-content;
     align-items: baseline;
-    justify-items: center;
-    
-    padding: 0 2rem;
+    /* justify-items: center; */
 
     background-color: aliceblue;
 }
 
-.projectListTitle {
-    grid-row: 1 / 2;
-
-    margin: 2rem 0;
-
-    font-weight: 700;
-    font-size: 36px;
-}
-
 .projectList {
-    grid-row: 2 / 3;
-
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 1rem;
     
     list-style: none;
     font-size: 24px;
 }
 
+.newProjectButton {
+    grid-row: 2 / 3;
+    justify-self: center;
+}
+
 .projectListLink,
-.newProjectListLink,
 .newProjectButton {
     cursor: pointer;
 }
@@ -108,11 +128,8 @@ body {
     color: red;
 }
 
-.newProjectButton {
-    grid-row: 3 / 4;
-
-    margin: 1rem 0;
-
+.newProjectButton,
+.newToDoButton {
     font-weight: bold;
     font-size: 48px;
 }
@@ -121,13 +138,51 @@ body {
     background-color: cadetblue;
 }
 
+.projectListContainer,
+.projectDisplayMenuBar {
+    padding: 1rem;
+}
+
 .projectDisplayMenuBar {
     display: flex;
+    align-items: center;
+    gap: 1rem;
     background-color: teal;
 }
 
-.projectTitle {
-    margin: 2rem 1rem;
-    font-size: 36px;
+.projectTitle,
+.projectsListTitle {
+    place-self: center;
+    font-size: 2.25rem;
     font-weight: 700;
+}
+
+.projectDescription {
+    width: 40%;
+    font-style: italic;
+}
+
+.newToDoButton {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.projectOptionsIcon {
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.projectDisplay {
+    padding: 1rem;
+}
+
+.formHeading {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.formItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }

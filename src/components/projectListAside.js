@@ -1,5 +1,6 @@
 import Project from '../modules/project';
 import { subscribe, unsubscribe, publish } from '../modules/pubsub';
+import { default as createNewProjectForm } from './newProjectForm';
 
 let container = null;
 let projectList = null;
@@ -9,18 +10,10 @@ export default function create(parentElement) {
   container.classList.add('projectListContainer');
   parentElement.appendChild(container);
 
-  createProjectListTitle();
   createProjectList(Project.list);
   createNewProjectLink();
 
   subscribe('onNewProject', createProjectList);
-}
-
-function createProjectListTitle() {
-  let div = document.createElement('span');
-  div.classList.add('projectListTitle');
-  div.innerText = 'Projects';
-  container.appendChild(div);
 }
 
 function createProjectList(projects) {
@@ -60,12 +53,8 @@ function createNewProjectLink() {
   let link = document.createElement('div');
   link.classList.add('newProjectButton');
   link.innerText = '+';
-  link.addEventListener('click', () => createNewProjectDialog());
+  link.addEventListener('click', () =>
+    createNewProjectForm(document.querySelector('body'))
+  );
   container.appendChild(link);
-}
-
-function createNewProjectDialog() {
-  let name = prompt('Project name:');
-  let description = prompt('Project description:');
-  if (name) new Project(name, description);
 }

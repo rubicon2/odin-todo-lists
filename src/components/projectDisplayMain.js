@@ -1,40 +1,40 @@
 import Project from '../modules/project';
+import ToDo from '../modules/todo';
 import { subscribe, unsubscribe, publish } from '../modules/pubsub';
+import { default as createNewToDoForm } from './newToDoForm';
+
+let currentProject = null;
 
 let container = null;
-let currentProject = null;
+let currentProjectDisplay = null;
 let projectTitleDisplay = null;
+let projectDescriptionDisplay = null;
 
 export default function create(parentElement) {
   container = document.createElement('main');
   container.classList.add('projectDisplayContainer');
   parentElement.appendChild(container);
 
-  createMenuBar();
-
   subscribe('onProjectSelect', displayProject);
-}
-
-function createMenuBar() {
-  let menuBar = document.createElement('div');
-  menuBar.classList.add('projectDisplayMenuBar');
-  container.appendChild(menuBar);
-
-  projectTitleDisplay = document.createElement('span');
-  projectTitleDisplay.classList.add('projectTitle');
-  projectTitleDisplay.innerText = 'Unassigned';
-  menuBar.appendChild(projectTitleDisplay);
+  subscribe('onToDoAdded', displayToDos);
+  subscribe('onToDoRemoved', displayToDos);
 }
 
 function displayProject(project) {
-  if (currentProject !== null) currentProject.remove();
-  projectTitleDisplay.innerText = project.name;
+  if (currentProjectDisplay !== null) currentProjectDisplay.remove();
+  currentProject = project;
 
-  currentProject = document.createElement('div');
+  currentProjectDisplay = document.createElement('div');
+  currentProjectDisplay.classList.add('projectDisplay');
+  container.appendChild(currentProjectDisplay);
 
-  let description = document.createElement('p');
-  description.innerText = project.description;
-  currentProject.appendChild(description);
+  displayToDos(project);
+}
 
-  container.appendChild(currentProject);
+function displayToDos(project) {
+  project.toDoList.forEach((e) => {
+    let toDoElement = document.createElement('div');
+    toDoElement.innerText = e.title;
+    currentProjectDisplay.appendChild(toDoElement);
+  });
 }
