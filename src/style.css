@@ -69,6 +69,8 @@ body {
 
     display: grid;
     place-items: center;
+
+    z-index: 1;
 }
 
 .newToDoForm {
@@ -79,6 +81,8 @@ body {
 
     display: grid;
     gap: 1rem;
+
+    box-shadow: 5px 5px 20px 20px rgba(0, 0, 0, 0.15);
 }
 
 .projectsListTitleBackground {
@@ -95,7 +99,6 @@ body {
     display: grid;
     grid-template-rows: 1fr min-content;
     align-items: baseline;
-    /* justify-items: center; */
 
     background-color: aliceblue;
 }
@@ -135,7 +138,7 @@ body {
 }
 
 .projectDisplayContainer {
-    background-color: cadetblue;
+    background-color: rgb(170, 170, 170);
 }
 
 .projectListContainer,
@@ -147,7 +150,10 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background-color: teal;
+    background-color: rgb(200, 200, 200);
+    box-shadow: 0 5px 50px 50px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .projectTitle,
