@@ -143,7 +143,7 @@ body {
 
 .projectListContainer,
 .projectDisplayMenuBar {
-    padding: 1rem;
+    padding: 1rem 2rem;
 }
 
 .projectDisplayMenuBar {
@@ -179,7 +179,30 @@ body {
 }
 
 .projectDisplay {
-    padding: 1rem;
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
+    gap: 2rem;
+}
+
+.toDo {
+    background-color: pink;
+    padding: 1.5rem;
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.toDoTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.toDoDescription {
+    font-style: italic;
 }
 
 .formHeading {

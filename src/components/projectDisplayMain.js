@@ -1,14 +1,9 @@
-import Project from '../modules/project';
-import ToDo from '../modules/todo';
 import { subscribe, unsubscribe, publish } from '../modules/pubsub';
-import { default as createNewToDoForm } from './newToDoForm';
-
-let currentProject = null;
 
 let container = null;
 let currentProjectDisplay = null;
-let projectTitleDisplay = null;
-let projectDescriptionDisplay = null;
+
+let currentProject = null;
 
 export default function create(parentElement) {
   container = document.createElement('main');
@@ -33,8 +28,22 @@ function displayProject(project) {
 
 function displayToDos(project) {
   project.toDoList.forEach((e) => {
-    let toDoElement = document.createElement('div');
-    toDoElement.innerText = e.title;
-    currentProjectDisplay.appendChild(toDoElement);
+    createToDo(e);
   });
+}
+
+function createToDo(toDo) {
+  let toDoElement = document.createElement('div');
+  toDoElement.classList.add('toDo');
+  currentProjectDisplay.appendChild(toDoElement);
+
+  let toDoTitle = document.createElement('div');
+  toDoTitle.classList.add('toDoTitle');
+  toDoTitle.innerText = toDo.title;
+  toDoElement.appendChild(toDoTitle);
+
+  let toDoDescription = document.createElement('div');
+  toDoDescription.classList.add('toDoDescription');
+  toDoDescription.innerText = toDo.description;
+  toDoElement.appendChild(toDoDescription);
 }

@@ -3,6 +3,7 @@ import createNewToDoForm from './newToDoForm';
 import projectOptionsIconSrc from '../img/cog.svg';
 
 let projectTitleElement = null;
+
 let currentProject = null;
 
 export default function createProjectBar(parentElement) {
