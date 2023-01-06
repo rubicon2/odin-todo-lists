@@ -15,10 +15,18 @@ export default function createNewToDoForm(parentElement, project) {
 
   let title = createInput(form, 'title', 'text', 'Title:');
   title.required = true;
+
   let description = createInput(form, 'description', 'text', 'Description:');
+
   let dueDate = createInput(form, 'due-date', 'date', 'Due date:');
   dueDate.required = true;
-  let priority = createInput(form, 'priority', 'text', 'Priority:');
+
+  let priority = createSelect(form, 'priorty', 'Priority:', [
+    { displayText: 'Low', value: 'low' },
+    { displayText: 'Mid', value: 'mid' },
+    { displayText: 'High', value: 'high' },
+  ]);
+  priority.value = 'mid';
   priority.required = true;
 
   let buttons = document.createElement('div');
@@ -48,9 +56,35 @@ export default function createNewToDoForm(parentElement, project) {
   form.appendChild(buttons);
 }
 
+function createSelect(parentForm, inputName, labelText, options) {
+  let formItem = document.createElement('div');
+  formItem.classList.add('formItem');
+  parentForm.appendChild(formItem);
+
+  let formLabel = document.createElement('label');
+  formLabel.innerText = labelText;
+  formLabel.for = inputName;
+  formItem.appendChild(formLabel);
+
+  let selectInput = document.createElement('select');
+  selectInput.name = inputName;
+  selectInput.id = inputName;
+  formItem.appendChild(selectInput);
+
+  options.forEach((element) => {
+    let option = document.createElement('option');
+    option.value = element.value;
+    option.innerText = element.displayText;
+    selectInput.appendChild(option);
+  });
+
+  return selectInput;
+}
+
 function createInput(parentForm, inputName, inputType, labelText) {
   let formItem = document.createElement('div');
   formItem.classList.add('formItem');
+  parentForm.appendChild(formItem);
 
   let formLabel = document.createElement('label');
   formLabel.innerText = labelText;
@@ -63,6 +97,5 @@ function createInput(parentForm, inputName, inputType, labelText) {
   formInput.id = inputName;
   formItem.appendChild(formInput);
 
-  parentForm.appendChild(formItem);
   return formInput;
 }
