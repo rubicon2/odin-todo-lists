@@ -7,7 +7,10 @@ import createProjectBar from './components/projectBar';
 
 const body = document.querySelector('body');
 
-new Project('Mega Project', "Wow it's a description!!");
+new Project(
+  'Mega Project: Return of The Plumbuses',
+  "Wow it's a description!!"
+);
 new Project('Mega Project 2');
 new Project('Mega Project 3');
 

@@ -118,6 +118,7 @@ body {
 }
 
 .projectListLink,
+.projectListItem,
 .newProjectButton {
     cursor: pointer;
 }
@@ -127,8 +128,13 @@ body {
     font-size: 36px;
 }
 
-.projectListLinkSelected {
-    color: red;
+.projectListItem {
+    opacity: 0.5;
+}
+
+.projectListLinkSelected,
+.projectListItemSelected {
+    opacity: 1;
 }
 
 .newProjectButton,
@@ -161,6 +167,21 @@ body {
     place-self: center;
     font-size: 2.25rem;
     font-weight: 700;
+}
+
+.projectListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.projectListItemTitle {
+    margin-right: auto;
+}
+
+.projectListItemDueCount {
+    color: red;
 }
 
 .projectDescription {

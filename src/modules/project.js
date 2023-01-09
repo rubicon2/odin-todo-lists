@@ -8,7 +8,15 @@ export default class Project {
     this.description = description;
     this.toDoList = toDoList;
     Project.list.push(this);
-    publish('onNewProject', Project.list);
+    publish('onNewProject', this);
+  }
+
+  delete() {
+    list = list.filter(function (e) {
+      return e != this;
+    });
+    publish('onProjectDelete', this);
+    delete this;
   }
 
   addToDo(newToDo) {
@@ -19,5 +27,13 @@ export default class Project {
   removeToDo(toDoToRemove) {
     this.toDoList = this.toDoList.filter((toDo) => toDo !== toDoToRemove);
     publish('onToDoRemoved', this);
+  }
+
+  get dueCount() {
+    let dueCount = 0;
+    return this.toDoList.reduce(
+      (accumulator, currentToDo) => accumulator + currentToDo.isDue,
+      dueCount
+    );
   }
 }

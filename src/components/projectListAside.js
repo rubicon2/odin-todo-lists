@@ -4,6 +4,9 @@ import { default as createNewProjectForm } from './newProjectForm';
 
 let container = null;
 let projectList = null;
+let projectListItems = [];
+
+// Make a way to associate each list item with a particular project.
 
 export default function create(parentElement) {
   container = document.createElement('aside');
@@ -13,40 +16,73 @@ export default function create(parentElement) {
   createProjectList(Project.list);
   createNewProjectLink();
 
-  subscribe('onNewProject', createProjectList);
+  subscribe('onNewProject', createProjectListItem);
+  subscribe('onProjectDelete', removeProjectListItem);
+  subscribe('onToDoAdded', updateProjectSummary);
+}
+
+function updateProjectSummary(project) {
+  let listItemToUpdate = projectListItems.filter(
+    (e) => e.project === project
+  )[0];
+  listItemToUpdate.titleElement.innerText = project.name;
+  listItemToUpdate.toDoCountElement.innerText = project.toDoList.length;
+  listItemToUpdate.dueCountElement.innerText = project.dueCount;
 }
 
 function createProjectList(projects) {
-  // Clear out any existing projectList element before we create the new one
-  if (projectList !== null) projectList.remove();
-
-  let ul = document.createElement('ul');
-  ul.classList.add('projectList');
-  projectList = ul;
+  projectList = document.createElement('ul');
+  projectList.classList.add('projectList');
 
   projects.forEach(function (project) {
-    createProjectListItem(ul, project);
+    createProjectListItem(project);
   });
 
-  // Gets added to bottom (past NEW PROJECT +++) again once list is refreshed. Maybe a diff method for updating list etc?
-  // Or take care of init in create()???
-  container.appendChild(ul);
+  container.appendChild(projectList);
 }
 
-function createProjectListItem(parentElement, project) {
+function createProjectListItem(project) {
   let li = document.createElement('li');
-  li.classList.add('projectListLink');
-  li.innerText = project.name;
+  li.classList.add('projectListItem');
+
   li.addEventListener('click', function () {
-    // Reset selected project
+    // Reset the previously selected project to unselected
     document
-      .querySelectorAll('.projectListLink')
-      .forEach((e) => e.classList.remove('projectListLinkSelected'));
+      .querySelectorAll('.projectListItem')
+      .forEach((e) => e.classList.remove('projectListItemSelected'));
     // Set to currently selected project
-    li.classList.add('projectListLinkSelected');
+    li.classList.add('projectListItemSelected');
     publish('onProjectSelect', project);
   });
-  parentElement.appendChild(li);
+
+  projectList.appendChild(li);
+
+  let projectTitle = document.createElement('div');
+  projectTitle.classList.add('projectListItemTitle');
+  projectTitle.innerText = project.name;
+  li.appendChild(projectTitle);
+
+  let toDoCount = document.createElement('div');
+  toDoCount.classList.add('projectListToDoCount');
+  toDoCount.innerText = project.toDoList.length;
+  li.appendChild(toDoCount);
+
+  let dueCount = document.createElement('div');
+  dueCount.classList.add('projectListItemDueCount');
+  dueCount.innerText = project.dueCount;
+  li.appendChild(dueCount);
+
+  projectListItems.push({
+    project: project,
+    titleElement: projectTitle,
+    toDoCountElement: toDoCount,
+    dueCountElement: dueCount,
+  });
+}
+
+function removeProjectListItem(project) {
+  let listItemsToRemove = projectListItems.filter((e) => e.project === project);
+  listItemsToRemove.forEach((e) => e.remove());
 }
 
 function createNewProjectLink() {

@@ -27,6 +27,10 @@ function displayProject(project) {
 }
 
 function displayToDos(project) {
+  document
+    .querySelectorAll('.projectDisplayContainer .toDo')
+    .forEach((e) => e.remove());
+
   project.toDoList.forEach((e) => {
     createToDo(e);
   });
