@@ -19,6 +19,7 @@ export default function create(parentElement) {
   subscribe('onNewProject', createProjectListItem);
   subscribe('onProjectDelete', removeProjectListItem);
   subscribe('onToDoAdded', updateProjectSummary);
+  subscribe('onToDoRemoved', updateProjectSummary);
 }
 
 function updateProjectSummary(project) {
