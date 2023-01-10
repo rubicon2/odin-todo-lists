@@ -208,18 +208,41 @@ body {
 }
 
 .toDo {
-    background-color: pink;
+    background-color: aliceblue;
+
     padding: 1.5rem;
     border-radius: 25px;
 
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+
+    box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+.toDoDue {
+    background-color: rgb(255, 90, 90);
+    color: aliceblue;
+}
+
+.toDoToolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 0.75rem;
 }
 
+.toDoToolbarIcon {
+    height: 2.5rem;
+}
+
 .toDoTitle {
+    margin-right: auto;
+
     font-size: 1.5rem;
     font-weight: 700;
+
+    overflow: hidden;
 }
 
 .toDoDescription {
