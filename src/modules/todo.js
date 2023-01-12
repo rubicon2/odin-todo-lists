@@ -5,22 +5,16 @@ export default class ToDo {
 
   constructor(
     title = 'New Item',
-    dueDate = new Date(),
+    dueDateString = new Date(),
     description = '',
     priority = 'normal',
     isCompleted = false
   ) {
     this.title = title;
-    this.dueDate = this.extractDateFromDateInputString(dueDate);
+    this.dueDate = new Date(dueDateString);
     this.priority = priority;
     this.description = description;
     this.#isCompleted = isCompleted;
-  }
-
-  extractDateFromDateInputString(string) {
-    // HTML date input format: yyyy-mm-dd
-    let split = string.split('-');
-    return new Date(split[0], split[1], split[2]);
   }
 
   get isDue() {
