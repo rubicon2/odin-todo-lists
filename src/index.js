@@ -11,8 +11,8 @@ new Project(
   'Mega Project: Return of The Plumbuses',
   "Wow it's a description!!"
 );
-new Project('Mega Project 2');
-new Project('Mega Project 3');
+new Project('Mega Project 46');
+new Project('A Mega Project 3');
 
 createProjectListAside(body);
 createProjectBar(body);

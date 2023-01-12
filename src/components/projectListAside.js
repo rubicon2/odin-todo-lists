@@ -13,7 +13,11 @@ export default function create(parentElement) {
   container.classList.add('projectListContainer');
   parentElement.appendChild(container);
 
-  createProjectList(Project.list);
+  createProjectList(
+    Project.list.sort(function (a, b) {
+      return a.name < b.name ? -1 : 1;
+    })
+  );
   createNewProjectLink();
 
   subscribe('onNewProject', createProjectListItem);
