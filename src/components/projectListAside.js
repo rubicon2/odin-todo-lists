@@ -32,6 +32,7 @@ function updateProjectSummary(project) {
 
 function updateProjectList() {
   document.querySelector('.projectList')?.remove();
+  projectListItems = [];
   createProjectList(Project.sortListByName());
 }
 
