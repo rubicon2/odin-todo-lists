@@ -33,6 +33,11 @@ function displayToDos(project) {
     .querySelectorAll('.projectDisplayContainer .toDo')
     .forEach((e) => e.remove());
 
+  // Sort into due date order
+  project.toDoList.sort(function (a, b) {
+    return a.dueDate.getTime() < b.dueDate.getTime() ? -1 : 1;
+  });
+
   project.toDoList.forEach((e) => {
     createToDo(e);
   });
