@@ -14,8 +14,7 @@ export default function create(parentElement) {
   parentElement.appendChild(container);
 
   subscribe('onProjectSelect', displayProject);
-  subscribe('onToDoAdded', displayToDos);
-  subscribe('onToDoRemoved', displayToDos);
+  subscribe('onToDoListChange', displayToDos);
 }
 
 function displayProject(project) {
@@ -68,6 +67,11 @@ function createToDoToolbar(parentElement, toDo) {
   toDoTitle.innerText = toDo.title;
   toolbar.appendChild(toDoTitle);
 
+  let dueDate = document.createElement('div');
+  dueDate.classList.add('toDoDueDate');
+  dueDate.innerText = getRelativeDate(toDo.dueDate);
+  toolbar.appendChild(dueDate);
+
   let done = document.createElement('img');
   done.classList.add('toDoToolbarIcon');
   done.src = completedIcon;
@@ -91,4 +95,34 @@ function createToDoToolbar(parentElement, toDo) {
     currentProject.removeToDo(toDo);
   });
   toolbar.appendChild(del);
+}
+
+function getRelativeDate(date) {
+  let months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  // This is rubbish and not going to work. IF you are halfway through the day, if the thing starts tomorrow
+  // it would only show TOMORROW if it was over a day beforehand.　NEED TO ROUND TO WHOLE DAYS!
+  let diff = date.getTime() - Date.now();
+  let oneDayInMillis = 24 * 60 * 60 * 1000;
+  let twoDaysInMillis = oneDayInMillis * 2;
+  if (diff < -oneDayInMillis && diff > -twoDaysInMillis) {
+    return 'Yesterday';
+  } else if (diff > oneDayInMillis && diff < twoDaysInMillis) {
+    return 'Tomorrow';
+  } else {
+    return `${date.getDate()} ${months[date.getMonth()]}`;
+  }
 }

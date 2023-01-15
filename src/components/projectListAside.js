@@ -2,28 +2,23 @@ import Project from '../modules/project';
 import { subscribe, unsubscribe, publish } from '../modules/pubsub';
 import { default as createNewProjectForm } from './newProjectForm';
 
+// DOM elements
 let container = null;
 let projectList = null;
+// Used to associate each list element with a project in Project.list
 let projectListItems = [];
-
-// Make a way to associate each list item with a particular project.
 
 export default function create(parentElement) {
   container = document.createElement('aside');
   container.classList.add('projectListContainer');
   parentElement.appendChild(container);
 
-  createProjectList(
-    Project.list.sort(function (a, b) {
-      return a.name < b.name ? -1 : 1;
-    })
-  );
+  createProjectList(Project.sortListByName());
+
   createNewProjectLink();
 
-  subscribe('onNewProject', createProjectListItem);
-  subscribe('onProjectDelete', removeProjectListItem);
-  subscribe('onToDoAdded', updateProjectSummary);
-  subscribe('onToDoRemoved', updateProjectSummary);
+  subscribe('onProjectListChange', updateProjectList);
+  subscribe('onToDoListChange', updateProjectSummary);
 }
 
 function updateProjectSummary(project) {
@@ -33,6 +28,11 @@ function updateProjectSummary(project) {
   listItemToUpdate.titleElement.innerText = project.name;
   listItemToUpdate.toDoCountElement.innerText = project.toDoList.length;
   listItemToUpdate.dueCountElement.innerText = project.dueCount;
+}
+
+function updateProjectList() {
+  document.querySelector('.projectList')?.remove();
+  createProjectList(Project.sortListByName());
 }
 
 function createProjectList(projects) {

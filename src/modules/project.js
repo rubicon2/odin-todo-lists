@@ -3,12 +3,19 @@ import { publish } from './pubsub';
 export default class Project {
   static list = [];
 
+  static sortListByName() {
+    return Project.list.sort(function (a, b) {
+      return a.name < b.name ? -1 : 1;
+    });
+  }
+
   constructor(name = 'New Project', description = '', toDoList = []) {
     this.name = name;
     this.description = description;
     this.toDoList = toDoList;
     Project.list.push(this);
     publish('onNewProject', this);
+    publish('onProjectListChange', Project.list);
   }
 
   delete() {
@@ -16,17 +23,20 @@ export default class Project {
       return e != this;
     });
     publish('onProjectDelete', this);
+    publish('onProjectListChange', Project.list);
     delete this;
   }
 
   addToDo(newToDo) {
     this.toDoList.push(newToDo);
-    publish('onToDoAdded', this);
+    publish('onToDoAdded', newToDo);
+    publish('onToDoListChange', this);
   }
 
   removeToDo(toDoToRemove) {
     this.toDoList = this.toDoList.filter((toDo) => toDo !== toDoToRemove);
-    publish('onToDoRemoved', this);
+    publish('onToDoRemoved', toDoToRemove);
+    publish('onToDoListChange', this);
   }
 
   get dueCount() {
