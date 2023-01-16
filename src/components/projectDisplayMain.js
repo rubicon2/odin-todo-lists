@@ -15,6 +15,7 @@ export default function create(parentElement) {
 
   subscribe('onProjectSelect', displayProject);
   subscribe('onToDoListChange', displayToDos);
+  subscribe('onToDoChange', displayToDos);
 }
 
 function displayProject(project) {
@@ -25,20 +26,20 @@ function displayProject(project) {
   currentProjectDisplay.classList.add('projectDisplay');
   container.appendChild(currentProjectDisplay);
 
-  displayToDos(project);
+  displayToDos();
 }
 
-function displayToDos(project) {
+function displayToDos() {
   document
     .querySelectorAll('.projectDisplayContainer .toDo')
     .forEach((e) => e.remove());
 
   // Sort into due date order
-  project.toDoList.sort(function (a, b) {
+  currentProject.toDoList.sort(function (a, b) {
     return a.dueDate.getTime() < b.dueDate.getTime() ? -1 : 1;
   });
 
-  project.toDoList.forEach((e) => {
+  currentProject.toDoList.forEach((e) => {
     createToDo(e);
   });
 }
@@ -48,7 +49,9 @@ function createToDo(toDo) {
   toDoElement.classList.add('toDo');
   currentProjectDisplay.appendChild(toDoElement);
 
-  if (toDo.isDue) {
+  if (toDo.completed) {
+    toDoElement.classList.add('toDoCompleted');
+  } else if (toDo.isDue) {
     toDoElement.classList.add('toDoDue');
   }
 
@@ -81,7 +84,7 @@ function createToDoToolbar(parentElement, toDo) {
   done.classList.add('toDoToolbarIcon');
   done.src = completedIcon;
   done.addEventListener('click', function (e) {
-    alert(`${toDo.title} is done!`);
+    toDo.completed = !toDo.completed;
   });
   toolbar.appendChild(done);
 
@@ -89,7 +92,7 @@ function createToDoToolbar(parentElement, toDo) {
   edit.classList.add('toDoToolbarIcon');
   edit.src = editIcon;
   edit.addEventListener('click', function (e) {
-    alert('Fuck off');
+    alert(`Completed: ${toDo.completed}`);
   });
   toolbar.appendChild(edit);
 

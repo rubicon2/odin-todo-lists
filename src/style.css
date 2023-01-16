@@ -203,8 +203,9 @@ body {
     padding: 2rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
     gap: 2rem;
+
+    overflow-y: scroll;
 }
 
 .toDo {
@@ -219,6 +220,10 @@ body {
     gap: 1rem;
 
     box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+.toDoCompleted {
+    background-color: rgb(25, 155, 25);
 }
 
 .toDoDue {
