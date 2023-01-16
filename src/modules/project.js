@@ -1,7 +1,27 @@
 import { publish } from './pubsub';
+import ToDo from './todo';
 
 export default class Project {
   static list = [];
+
+  static loadList(jsonString) {
+    let projects = JSON.parse(jsonString);
+    for (let p of projects) {
+      let toDoList = [];
+      for (let toDo of p.toDoList) {
+        toDoList.push(
+          new ToDo(
+            toDo.title,
+            toDo.dueDate,
+            toDo.description,
+            toDo.priority,
+            toDo.isCompleted
+          )
+        );
+      }
+      new Project(p.name, p.description, toDoList);
+    }
+  }
 
   static sortListByName() {
     return Project.list.sort(function (a, b) {
