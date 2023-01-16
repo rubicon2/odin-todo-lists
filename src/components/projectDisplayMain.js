@@ -15,7 +15,6 @@ export default function create(parentElement) {
 
   subscribe('onProjectSelect', displayProject);
   subscribe('onToDoListChange', displayToDos);
-  subscribe('onToDoChange', displayToDos);
 }
 
 function displayProject(project) {
@@ -39,7 +38,28 @@ function displayToDos() {
     return a.dueDate.getTime() < b.dueDate.getTime() ? -1 : 1;
   });
 
-  currentProject.toDoList.forEach((e) => {
+  let dueItems = currentProject.dueItems;
+  dueItems.sort((a, b) => (a.dueDate.getTime() < b.dueDate.getTime() ? -1 : 1));
+
+  dueItems.forEach((e) => {
+    createToDo(e);
+  });
+
+  let notDueItems = currentProject.notDueItems;
+  notDueItems.sort((a, b) =>
+    a.dueDate.getTime() < b.dueDate.getTime() ? -1 : 1
+  );
+
+  notDueItems.forEach((e) => {
+    createToDo(e);
+  });
+
+  let closedItems = currentProject.closedItems;
+  closedItems.sort((a, b) =>
+    a.dueDate.getTime() < b.dueDate.getTime() ? -1 : 1
+  );
+
+  closedItems.forEach((e) => {
     createToDo(e);
   });
 }
@@ -85,6 +105,7 @@ function createToDoToolbar(parentElement, toDo) {
   done.src = completedIcon;
   done.addEventListener('click', function (e) {
     toDo.completed = !toDo.completed;
+    publish('onToDoListChange', currentProject);
   });
   toolbar.appendChild(done);
 
@@ -92,7 +113,9 @@ function createToDoToolbar(parentElement, toDo) {
   edit.classList.add('toDoToolbarIcon');
   edit.src = editIcon;
   edit.addEventListener('click', function (e) {
-    alert(`Completed: ${toDo.completed}`);
+    alert(
+      `Completed: ${toDo.completed}, isDue: ${toDo.isDue}, dueDate: ${toDo.dueDate}`
+    );
   });
   toolbar.appendChild(edit);
 

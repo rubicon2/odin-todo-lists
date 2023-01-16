@@ -26,8 +26,8 @@ function updateProjectSummary(project) {
     (e) => e.project === project
   )[0];
   listItemToUpdate.titleElement.innerText = project.name;
-  listItemToUpdate.toDoCountElement.innerText = project.toDoList.length;
-  listItemToUpdate.dueCountElement.innerText = project.dueCount;
+  listItemToUpdate.toDoCountElement.innerText = project.openItems.length;
+  listItemToUpdate.dueCountElement.innerText = project.dueItems.length;
 }
 
 function updateProjectList() {
@@ -70,12 +70,12 @@ function createProjectListItem(project) {
 
   let toDoCount = document.createElement('div');
   toDoCount.classList.add('projectListToDoCount');
-  toDoCount.innerText = project.toDoList.length;
+  toDoCount.innerText = project.openItems.length;
   li.appendChild(toDoCount);
 
   let dueCount = document.createElement('div');
   dueCount.classList.add('projectListItemDueCount');
-  dueCount.innerText = project.dueCount;
+  dueCount.innerText = project.dueItems.length;
   li.appendChild(dueCount);
 
   projectListItems.push({

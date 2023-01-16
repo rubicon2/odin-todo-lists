@@ -59,6 +59,22 @@ export default class Project {
     publish('onToDoListChange', this);
   }
 
+  get openItems() {
+    return this.toDoList.filter((e) => !e.completed);
+  }
+
+  get closedItems() {
+    return this.toDoList.filter((e) => e.completed);
+  }
+
+  get dueItems() {
+    return this.toDoList.filter((e) => e.isDue);
+  }
+
+  get notDueItems() {
+    return this.toDoList.filter((e) => !e.isDue && !e.completed);
+  }
+
   get dueCount() {
     let dueCount = 0;
     return this.toDoList.reduce(

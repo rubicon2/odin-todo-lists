@@ -18,7 +18,7 @@ export default class ToDo {
   }
 
   get isDue() {
-    return this.dueDate.getTime() <= Date.now();
+    return this.#isCompleted ? false : this.dueDate.getTime() <= Date.now();
   }
 
   get completed() {

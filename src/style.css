@@ -224,6 +224,7 @@ body {
 
 .toDoCompleted {
     background-color: rgb(25, 155, 25);
+    text-decoration: line-through;
 }
 
 .toDoDue {
