@@ -68,6 +68,18 @@ function createToDo(toDo) {
     toDoElement.classList.add('toDoDue');
   }
 
+  switch (toDo.priority) {
+    case 'low':
+      toDoElement.classList.add('lowPriority');
+      break;
+    case 'mid':
+      toDoElement.classList.add('midPriority');
+      break;
+    case 'high':
+      toDoElement.classList.add('highPriority');
+      break;
+  }
+
   createToDoToolbar(toDoElement, toDo);
 
   if (toDo.description !== '') {
