@@ -1,4 +1,5 @@
 import { publish } from './pubsub';
+import { floorTimeToDay } from './dates';
 
 export default class ToDo {
   #isCompleted;
@@ -18,7 +19,9 @@ export default class ToDo {
   }
 
   get isDue() {
-    return this.#isCompleted ? false : this.dueDate.getTime() <= Date.now();
+    return this.#isCompleted
+      ? false
+      : floorTimeToDay(this.dueDate.getTime()) <= floorTimeToDay(Date.now());
   }
 
   get completed() {
