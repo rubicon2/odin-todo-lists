@@ -32,4 +32,14 @@ export default class ToDo {
     this.#isCompleted = value;
     publish('onToDoChange', this);
   }
+
+  toJSON() {
+    return {
+      title: this.title,
+      dueDate: this.dueDate,
+      priority: this.priority,
+      description: this.description,
+      isCompleted: this.#isCompleted,
+    };
+  }
 }
