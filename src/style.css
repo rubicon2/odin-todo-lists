@@ -58,7 +58,7 @@ body {
     background-color: pink;
 
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 1fr 2.75fr;
     grid-template-rows: min-content 1fr;
 
     min-height: 100vh;
