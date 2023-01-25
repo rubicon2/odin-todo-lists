@@ -4,6 +4,7 @@ import { getRelativeDate } from '../modules/dates';
 import editIcon from '../img/edit.svg';
 import deleteIcon from '../img/bin.svg';
 import completedIcon from '../img/tick.svg';
+import createEditToDoForm from './editToDoForm';
 
 let container = null;
 let currentProjectDisplay = null;
@@ -108,7 +109,7 @@ function createToDoToolbar(parentElement, toDo) {
   let done = document.createElement('img');
   done.classList.add('toDoToolbarIcon');
   done.src = completedIcon;
-  done.addEventListener('click', function (e) {
+  done.addEventListener('click', function () {
     toDo.completed = !toDo.completed;
     publish('onToDoListChange', currentProject);
   });
@@ -117,10 +118,8 @@ function createToDoToolbar(parentElement, toDo) {
   let edit = document.createElement('img');
   edit.classList.add('toDoToolbarIcon');
   edit.src = editIcon;
-  edit.addEventListener('click', function (e) {
-    alert(
-      `Completed: ${toDo.completed}, isDue: ${toDo.isDue}, dueDate: ${toDo.dueDate}`
-    );
+  edit.addEventListener('click', function () {
+    createEditToDoForm(document.querySelector('body'), currentProject, toDo);
   });
   toolbar.appendChild(edit);
 

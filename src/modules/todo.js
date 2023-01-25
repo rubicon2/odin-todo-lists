@@ -18,6 +18,10 @@ export default class ToDo {
     this.#isCompleted = isCompleted;
   }
 
+  get dueDateInHTMLInputFormat() {
+    return this.dueDate.toISOString().slice(0, 10);
+  }
+
   get isDue() {
     return this.#isCompleted
       ? false
